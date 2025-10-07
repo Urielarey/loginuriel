@@ -74,9 +74,13 @@ body {
     text-align: center;
 }
 
+.logo {
+	padding-bottom: 5px;
+}
+
 .logo h1 {
     font-family: instagram;
-    font-size: 51px;
+    font-size: clamp(36px, 6vw, 51px);
     font-weight: 400;
     margin-bottom: 30px;
     color: #fff;
@@ -196,7 +200,7 @@ body {
 }
 
 .forgot-password {
-    color: #0095f6;
+    color: #ffffff;
     text-decoration: none;
     font-size: 12px;
 }
@@ -346,7 +350,7 @@ body {
 
 .footer-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 12px;
     color: #888;
@@ -357,6 +361,7 @@ body {
     align-items: center;
     gap: 5px;
     cursor: pointer;
+    padding-right: 13px;
 }
 
 .arrow {
@@ -388,13 +393,14 @@ body {
     }
     
     .login-section {
-        padding: 10px;
+        padding: 90px 10px;
     }
     
     .footer-links {
         flex-direction: column;
         gap: 10px;
         text-align: center;
+        display: none;
     }
     
     .footer-bottom {
