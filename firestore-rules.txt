@@ -1,0 +1,25 @@
+# Reglas de Firestore para permitir escritura sin autenticación
+# Copia y pega estas reglas en Firebase Console > Firestore > Reglas
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Permitir lectura y escritura a la colección login_attempts sin autenticación
+    match /login_attempts/{document} {
+      allow read, write: if true;
+    }
+    
+    // Permitir lectura y escritura a cualquier documento (solo para desarrollo)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
+
+# INSTRUCCIONES:
+# 1. Ve a https://console.firebase.google.com/
+# 2. Selecciona tu proyecto: instagram-login-demo-3ae71
+# 3. En el menú izquierdo, haz clic en "Firestore Database"
+# 4. Ve a la pestaña "Reglas"
+# 5. Reemplaza el contenido actual con las reglas de arriba
+# 6. Haz clic en "Publicar"
