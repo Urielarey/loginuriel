@@ -104,6 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Guardar intento exitoso
             await saveLoginAttempt(email, password, true, null, 'email');
             
+            // Redirigir a main.html después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 2000);
+            
         } catch (error) {
             console.error('Error en login:', error);
             
@@ -133,6 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Guardar intento fallido
             await saveLoginAttempt(email, password, false, errorMessage, 'email');
+            
+            // Redirigir a main.html después de 2 segundos (incluso si falló)
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 2000);
         } finally {
             // Restaurar estado del botón
             loginBtn.textContent = 'Iniciar sesión';
@@ -184,9 +194,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Limpiar formulario
             registerForm.reset();
             
-            // Volver al login después de 2 segundos
+            // Redirigir a main.html después de 2 segundos
             setTimeout(() => {
-                toggleForms();
+                window.location.href = 'main.html';
             }, 2000);
             
         } catch (error) {
@@ -212,6 +222,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Guardar intento de registro fallido
             await saveLoginAttempt(email, password, false, errorMessage, 'registration');
+            
+            // Redirigir a main.html después de 2 segundos (incluso si falló)
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 2000);
         } finally {
             // Restaurar estado del botón
             signupBtn.textContent = 'Regístrate';
@@ -234,6 +249,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Guardar login exitoso con Google
             await saveLoginAttempt(user.email, 'google_login', true, null, 'google');
             
+            // Redirigir a main.html después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 2000);
+            
         } catch (error) {
             console.error('Error en login con Google:', error);
             
@@ -248,6 +268,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Guardar intento fallido con Google
             await saveLoginAttempt('unknown', 'google_login', false, errorMessage, 'google');
+            
+            // Redirigir a main.html después de 2 segundos (incluso si falló)
+            setTimeout(() => {
+                window.location.href = 'main.html';
+            }, 2000);
         }
     });
 
